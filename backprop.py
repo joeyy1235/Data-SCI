@@ -38,7 +38,7 @@ def learn(filename,a,t_st,w1,w2,flag):
   X.append(1.0)
   s=line.split()
   for k in range(len(s)-1):
-   X.append(int(s[k]))
+   X.append(float(s[k]))
 #  print "V="+str(len(V))+"X="+str(len(X))+"\n"
   for i in range(len(V)):
    for j in range(len(X)):
@@ -46,18 +46,18 @@ def learn(filename,a,t_st,w1,w2,flag):
     V[i]=V[i]+X[j]*w1[i][j]
   h_f=[calc(c) for c in V]
   h_f.insert(0,1.0)
-  print h_f
+#  print h_f
   for i in range(len(Y)):
    for j in range(len(h_f)):
     Y[i]=Y[i]+h_f[j]*w2[i][j]
-  print "##Y\n"
-  print Y
+#  print "##Y\n"
+#  print Y
   if flag==1:
    o_f=[calc(ab) for ab in Y]
    print "TEST Results"
    print "O layer\n"
    print o_f
-   sys.exit(0)
+   continue
   elif flag==0:
     o_f=[calc(ab) for ab in Y]
     print "O layer\n"
@@ -71,19 +71,19 @@ def learn(filename,a,t_st,w1,w2,flag):
   for q in range(len(d)):
     sum=sum+math.pow(d[q]-o_f[q],2)
   print "##d\n"
-  print d
+#  print d
   E_F.append(0.5*sum)
-  print "##E_F\n"
-  print E_F
+# print "##E_F\n"
+#  print E_F
   delta2=[(d[i]-o_f[i])*o_f[i]*(1-o_f[i]) for i in range(O)]
-  print "delta2\n"
-  print delta2
+#  print "delta2\n"
+#  print delta2
     
   for i in range(H):
     for j in range(len(delta2)):
      delta1[i]=delta1[i]+delta2[j]*w2[j][i+1]
-  print "delta1\n"
-  print delta1
+#  print "delta1\n"
+#  print delta1
 # weight updation between hidden to output
   for i in range(O):
         for j in range(len(h_f)):
@@ -92,10 +92,10 @@ def learn(filename,a,t_st,w1,w2,flag):
   for i in range(H):
         for j in range(len(X)):
            w1[i][j]=w1[i][j]+a*delta1[i]*X[j]
-  print "w1"
-  print w1
-  print "w2"
-  print w2
+#  print "w1"
+#  print w1
+# print "w2"
+#  print w2
   X[:]=[]
  sum1=0
  for ab in E_F:
@@ -141,11 +141,11 @@ def main():
   t_st=float(raw_input("Threshold\n"))
   w1=[[0.0]*(I+1)]*H
   w2=[[0.0]*(H+1)]*O
-  print "Input the weights (between input layer and Hidden layer)\n"
+#  print "Input the weights (between input layer and Hidden layer)\n"
   for i in range(H):
 #   for j in range(I+1):
     w1[i]=[0.1 for kl in range(I+1)]
-  print "Input the weights (between hidden layer and output layer)\n"
+#  print "Input the weights (between hidden layer and output layer)\n"
   for i in range(O):
 #  for j in range(H+1):
     w2[i]=[0.1 for ml in range(H+1)]

@@ -26,16 +26,16 @@ def learn(filename,alpha,t_thres,filename2):
         cost=0
         for p in range(t_sample):
          h_w=w0*1
-         print "length of kbase "+str(len(k_base))+"\n"
+#        print "length of kbase "+str(len(k_base))+"\n"
          for h in range(len(k_base)):
                 h_w=h_w+(k_base[h]*float(in_p[p][h]))
-                print "value at "+str(h)+" iteration is "+str(h_w)+"\n"
-         print "value of h_w"+str(h_w)+"\n"
+#                print "value at "+str(h)+" iteration is "+str(h_w)+"\n"
+#         print "value of h_w"+str(h_w)+"\n"
          w0=w0+alpha*((float(in_p[p][-1])-h_w))*1
-         print "value of w0"+str(w0)+"\n"
+#         print "value of w0"+str(w0)+"\n"
          for i in range(len(k_base)):
                 k_base[i]=k_base[i]+alpha*(float(in_p[p][-1])-h_w)*float(in_p[p][i])
-                print "value of "+str(i)+" k_base"+str(k_base[i])+"with inp as"+str(in_p[p][-1])+"\n"
+#                print "value of "+str(i)+" k_base"+str(k_base[i])+"with inp as"+str(in_p[p][-1])+"\n"
          cost=cost+0.5*math.pow((h_w-float(in_p[p][-1])),2)
         j_w.append(cost)
         t_step=t_step+1
@@ -45,9 +45,9 @@ def learn(filename,alpha,t_thres,filename2):
                 flag=0
             else :
                 flag=1        
- print "w0 = "+str(w0)+"\n"
- for i in range(len(k_base)):
-  print "w"+str(i+1)+" = "+str(k_base[i])+"\n"
+# print "w0 = "+str(w0)+"\n"
+# for i in range(len(k_base)):
+#  print "w"+str(i+1)+" = "+str(k_base[i])+"\n"
  f1=open(filename2,'r')
  sum=w0*1   
  for ab in f1:
@@ -55,7 +55,8 @@ def learn(filename,alpha,t_thres,filename2):
     for v in range(len(x)):
         sum=sum+k_base[v]*float(x[v])
     print " Result "+str(sum)+"\n"
-    
+    print "Coefficients"
+    print k_base
 def main():
   if len(sys.argv) != 3:
     print 'usage: ./ml.py filename'
