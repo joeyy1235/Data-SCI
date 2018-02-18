@@ -14,6 +14,8 @@ Sum_E=[]
 delta2=[]
 delta1=[]
 count=0
+acc_c=0
+acc_tot=0
 def learn(filename,a,t_st,w1,w2,flag):
  global I
  global H
@@ -28,8 +30,11 @@ def learn(filename,a,t_st,w1,w2,flag):
  global delta2
  global count
  global Sum_E
+ global acc_c
+ global acc_tot
  f=open(filename,'r')
  for line in f:
+  X[:]=[]
   V=[0.0]*H
   Y=[0.0]*O
   d=[0.0]*O
@@ -57,11 +62,17 @@ def learn(filename,a,t_st,w1,w2,flag):
    print "TEST Results"
    print "O layer\n"
    print o_f
+   cl=o_f.index(max(o_f))
+   print "Class "+str(cl)+" expected"+str(int(s[-1]))+"\n"
+   if cl==int(s[-1]):
+    print "Here"
+    acc_c=acc_c+1
+   acc_tot=acc_tot+1
    continue
   elif flag==0:
-    o_f=[calc(ab) for ab in Y]
-    print "O layer\n"
-    print o_f
+   o_f=[calc(ab) for ab in Y]
+#   print "O layer\n"
+#   print o_f
   for q in range(len(d)):
     if q==int(s[-1]):
         d[q]=1
@@ -70,7 +81,7 @@ def learn(filename,a,t_st,w1,w2,flag):
   sum=0
   for q in range(len(d)):
     sum=sum+math.pow(d[q]-o_f[q],2)
-  print "##d\n"
+#  print "##d\n"
 #  print d
   E_F.append(0.5*sum)
 # print "##E_F\n"
@@ -127,6 +138,8 @@ def main():
   global O
   global w1
   global w2
+  global acc_c
+  global acc_tot
   if len(sys.argv) != 3:
     print 'usage: ./ml.py filename filename'
     sys.exit(1)
@@ -152,9 +165,12 @@ def main():
   learn(filename,a,t_st,w1,w2,flag)
   flag=1
   learn(filename1,a,t_st,w1,w2,flag)
-  print "##W1##\n"
-  print w1
-  print "##W2##\n"
-  print w2
+#  print "##W1##\n"
+#  print w1
+#  print "##W2##\n"
+#  print w2
+  d12=float(acc_c)/float(acc_tot)
+  print "Acc_c ="+str(acc_c)+" Acc_tot ="+str(acc_tot)+"\n"
+  print "Accuracy = "+str(d12*100)+"\n"
 if __name__ == '__main__':
   main()
